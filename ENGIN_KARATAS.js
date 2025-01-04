@@ -32,7 +32,7 @@
                             </div>
                             <a href="${"test"}" target="_blank">
                                 <div class="product-card__image-wrapper">
-                                    <img class="product-card__image" src="${"test"}" alt="" />
+                                    <img class="product-card__image" src="https://img-lcwaikiki.mncdn.com/mnresize/1024/-/pim/productimages/20221/5593210/v1/l_20221-s26331z8-cvl_a.jpg" alt="" />
                                 </div>
                                 <div class="product-card__content">
                                     <div class="product-card__title">${"test".substr(
