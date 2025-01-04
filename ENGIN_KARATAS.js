@@ -1,5 +1,10 @@
 (() => {
     const init = () => {
+        var script = document.createElement("script");
+        script.src = "https://code.jquery.com/jquery-latest.min.js";
+        script.type = "text/javascript";
+        document.head.appendChild(script);
+        
         buildHTML();
         buildCSS();
         setEvents();
