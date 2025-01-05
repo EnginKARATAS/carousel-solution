@@ -328,7 +328,7 @@
             <div class="product-card__content">
                 <div class="product-card__title">${element.name.substr(
                   0,
-                  45
+                  50
                 )}...</div>
         </a>
 
