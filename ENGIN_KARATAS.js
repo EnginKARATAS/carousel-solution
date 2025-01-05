@@ -265,7 +265,9 @@
   };
 
   const setScripts= ()=>{
-
+    obtainData().then((data) => {
+        appendCarousel(data);
+      });
 
     function appendCarousel(fetchResult) {
         let appendSource;
