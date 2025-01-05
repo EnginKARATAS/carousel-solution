@@ -48,8 +48,7 @@
   };
 
   const buildCSS = () => {
-    const css = 
-    `
+    const css = `
       :root {
         --carousel-gap: 18px;
         --carousel-container-bg: #faf9f7;
@@ -300,20 +299,21 @@
   }
   const ls = new LocalStorageManager();
 
-  function appendCarousel(obtainedData) {
-    let appendSource = obtainedData.data;
-    ls.save(
-      appendSource.map((item) => {
-        //store heart data to ls
-        return { ...item, isHeartFilled: false };
-      })
-    );
+  function appendCarousel({ obtainedData, isLocal }) {
+    if (!isLocal) {
+      ls.save(
+        obtainedData.map((item) => {
+          //store heart data to ls
+          return { ...item, isHeartFilled: false };
+        })
+      );
+    }
     //prevent multi execute script carousel length > 10
     const $carousel = $(".product-carousel__items").last();
     if ($carousel.find(".product-card").length) return;
 
     let cards = "";
-    appendSource.forEach((element) => {
+    obtainedData.forEach((element) => {
       let card = `       
     <div class="product-card">
         <div class="product-card__heart" data-id="${element.id}">
@@ -353,10 +353,9 @@
     return new Promise((resolve, reject) => {
       const localStorageCards = ls.get();
       if (localStorageCards.length > 0) {
-        appendCarousel({ data: localStorageCards });//obtain source: local
-        //resolve({ data: localStorageCards });//resolve for service needs
-      }
-      else {
+        appendCarousel({ obtainedData: localStorageCards, isLocal: true }); //obtain source: local
+        //resolve({ obtainedData: localStorageCards });//resolve for service needs
+      } else {
         try {
           fetch(
             "https://gist.githubusercontent.com/sevindi/5765c5812bbc8238a38b3cf52f233651/raw/56261d81af8561bf0a7cf692fe572f9e1e91f372/products.json"
@@ -368,8 +367,8 @@
               return response.json();
             })
             .then((fetchedCards) => {
-              appendCarousel({ data: fetchedCards });//obtain source: fetch API
-              //resolve({ data: fetchedCards }); //for service needs
+              appendCarousel({ obtainedData: fetchedCards, isLocal: false }); //obtain source: fetch API
+              //resolve({ obtainedData: fetchedCards }); //for service needs
             })
             .catch((error) => {
               console.error("Error fetching data:", error);
