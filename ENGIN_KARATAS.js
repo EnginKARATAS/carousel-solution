@@ -103,7 +103,7 @@
             }
 
             .product-carousel__title {
-            font-size: var(--container-title);
+            font-size: var(--carousel-title-size);
             color: #29323b;
             line-height: 33px;
             font-weight: lighter;
