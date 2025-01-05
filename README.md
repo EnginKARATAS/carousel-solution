@@ -1,3 +1,7 @@
+# A Carousel Study: Jquery, JS, HTML, CSS
+
+![image](https://github.com/user-attachments/assets/4447daf3-e179-49f5-a764-a65019025cbe)
+
 ## User Story
 - [x]  Build a product carousel on [https://www.lcwaikiki.com](https://www.lcwaikiki.com/) similar to the one visible on the website’s product page.
 - [x]  To achieve this, you need to retrieve the product list using a GET request from the following URL: https://gist.githubusercontent.com/sevindi/5765c5812bbc8238a38b3cf52f233651/raw/56261d81af8561bf0a7cf692fe572f9e1e91f372/products.json
