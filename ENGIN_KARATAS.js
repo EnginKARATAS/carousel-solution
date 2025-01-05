@@ -281,12 +281,12 @@
     toggleHeart(cardId) {
       try {
         const cards = this.get();
-        const cardIndex = cards.findIndex((card) => card.id === Number(cardId));
+        const card = cards.find((card) => card.id === Number(cardId));
 
-        if (cardIndex !== -1) {
-          cards[cardIndex].isHeartFilled = !cards[cardIndex].isHeartFilled;
+        if (card) {
+          card.isHeartFilled = !card.isHeartFilled;
           this.save(cards);
-          return cards[cardIndex].isHeartFilled;
+          return card.isHeartFilled;
         }
         return null;
       } catch (error) {
