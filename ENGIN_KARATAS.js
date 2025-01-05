@@ -273,6 +273,14 @@
       prevScrollLeft = $carousel.scrollLeft();
     }
 
+    function handleMouseMove(e) {
+        if (!isDragStart) return;
+  
+        isDragging = true;
+        let positionDiff = e.pageX - prevPageX;
+        $carousel.scrollLeft(prevScrollLeft - positionDiff);
+      }
+  
     function handleClick(e) {
       if (isDragging) {
         e.preventDefault();
@@ -293,7 +301,7 @@
 
     $carousel
       .on("mousedown", handleMouseDown)
-      .on("mousemove", "handleMouseMove")
+      .on("mousemove", handleMouseMove)
       .on("mouseup", handleMouseUp)
       .on("mouseleave", "handleMouseUp")
       .on("click", handleClick)
