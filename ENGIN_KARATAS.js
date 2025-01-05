@@ -427,7 +427,29 @@ const ls = new LocalStorageManager();
       }
     }
 
-   
+    function handleTouchStart(e) {
+        isDragStart = true;
+        isDragging = false;
+        prevTouchX = e.originalEvent.touches[0].pageX;
+        prevScrollLeft = $carousel.scrollLeft();
+      }
+  
+      function handleTouchMove(e) {
+        if (!isDragStart) return;
+  
+        e.preventDefault();
+  
+        isDragging = true;
+        let positionDiff = e.originalEvent.touches[0].pageX - prevTouchX;
+        $carousel.scrollLeft(prevScrollLeft - positionDiff);
+      }
+  
+      function handleTouchEnd() {
+        isDragStart = false;
+        setTimeout(() => {
+          isDragging = false;
+        }, 50);
+      }  
 
     $arrowLeft.on("click", handleArrowClick);
     $arrowRight.on("click", handleArrowClick);
@@ -439,9 +461,9 @@ const ls = new LocalStorageManager();
       .on("mouseleave", "handleMouseUp")
       .on("click", handleClick)
       .on("click", ".product-card__heart", handleHeartClick)
-      .on("touchstart", "handleTouchStart")
-      .on("touchmove", "handleTouchMove")
-      .on("touchend", "handleTouchEnd");
+      .on("touchstart", handleTouchStart)
+      .on("touchmove", handleTouchMove)
+      .on("touchend", handleTouchEnd);
   };
 
   init();
