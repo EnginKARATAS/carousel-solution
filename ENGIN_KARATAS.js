@@ -288,18 +288,14 @@
   }
   const ls = new LocalStorageManager();
 
-  function appendCarousel(fetchResult) {
-    let appendSource;
-    if (fetchResult.source === "local") {
-      appendSource = fetchResult.localStorageCards;
-    } else if (fetchResult.source === "fetchapi") {
-      appendSource = fetchResult.localStorageCards;
-      ls.save(
-        appendSource.map((item) => {
-          return { ...item, isHeartFilled: false };
-        })
-      );
-    }
+  function appendCarousel(obtainedData) {
+    let appendSource = obtainedData.data;
+    ls.save(
+      appendSource.map((item) => {
+        //store heart along with data on ls
+        return { ...item, isHeartFilled: false };
+      })
+    );
     //append cards
     let cards = "";
     appendSource.forEach((element) => {
@@ -341,7 +337,7 @@
       //obtain source: local
       const localStorageCards = ls.get();
       if (localStorageCards.length > 0) {
-        appendCarousel({ localStorageCards, source: "local" });
+        appendCarousel({ data: localStorageCards });
         //resolve for service needs
       }
       //obtain source: fetch API
@@ -352,8 +348,7 @@
           )
             .then((response) => response.json())
             .then(
-              (fetchedCards) =>
-                appendCarousel({ localStorageCards, source: "fetchapi" })
+              (fetchedCards) => appendCarousel({ data: fetchedCards })
               //resolve for service needs
             );
         } catch (error) {
