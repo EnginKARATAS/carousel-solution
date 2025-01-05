@@ -305,8 +305,22 @@
       });
     }
 
-    $arrowLeft.on("click", "handleArrowClick");
-    $arrowRight.on("click", "handleArrowClick");
+     function handleHeartClick(e) {
+      const $path = $(this).find("path");
+      const currCardId = e.currentTarget.getAttribute("data-id");
+      if ($path.attr("fill") === "none") {
+        $path.attr("fill", "#193db0");
+        ls.toggleHeart(currCardId);
+      } else {
+        $path.attr("fill", "none");
+        ls.toggleHeart(currCardId);
+      }
+    }
+
+   
+
+    $arrowLeft.on("click", handleArrowClick);
+    $arrowRight.on("click", handleArrowClick);
 
     $carousel
       .on("mousedown", handleMouseDown)
@@ -314,7 +328,7 @@
       .on("mouseup", handleMouseUp)
       .on("mouseleave", "handleMouseUp")
       .on("click", handleClick)
-      .on("click", ".product-card__heart", "handleHeartClick")
+      .on("click", ".product-card__heart", handleHeartClick)
       .on("touchstart", "handleTouchStart")
       .on("touchmove", "handleTouchMove")
       .on("touchend", "handleTouchEnd");
