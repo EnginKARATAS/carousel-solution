@@ -307,7 +307,7 @@
     );
     //prevent multi execute script carousel length > 10
     const $carousel = $(".product-carousel__items").last();
-    if ($carousel.children().length) return;
+    if ($carousel.find('.product-card').length) return;
 
     let cards = "";
     appendSource.forEach((element) => {
