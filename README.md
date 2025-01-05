@@ -1,6 +1,6 @@
 # A Carousel Study: Jquery, JS, HTML, CSS
 
-![image](https://github.com/user-attachments/assets/4447daf3-e179-49f5-a764-a65019025cbe)
+![image](https://github.com/user-attachments/assets/4b8c898f-5995-40a9-b456-e276269c97b2)
 
 ## User Story
 - [x]  Build a product carousel on [https://www.lcwaikiki.com](https://www.lcwaikiki.com/) similar to the one visible on the website’s product page.
