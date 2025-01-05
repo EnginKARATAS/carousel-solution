@@ -301,7 +301,7 @@
     let appendSource = obtainedData.data;
     ls.save(
       appendSource.map((item) => {
-        //store heart along with data on ls
+        //store heart data to ls
         return { ...item, isHeartFilled: false };
       })
     );
