@@ -305,7 +305,10 @@
         return { ...item, isHeartFilled: false };
       })
     );
-    //append cards
+    //prevent multi execute script carousel length > 10
+    const $carousel = $(".product-carousel__items").last();
+    if ($carousel.children().length) return;
+
     let cards = "";
     appendSource.forEach((element) => {
       let card = `       
@@ -339,9 +342,8 @@
       cards += card;
     });
 
-    //prevent multi execute script carousel length > 10
-    const $carousel = $(".product-carousel__items").last();
-    if (!$carousel.children().length) $carousel.append(cards);
+    //append cards
+    $carousel.append(cards);
   }
 
   async function obtainData() {
