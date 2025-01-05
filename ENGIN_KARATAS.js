@@ -5,9 +5,18 @@
     script.type = "text/javascript";
     document.head.appendChild(script);
 
-    buildHTML();
-    buildCSS();
-    setEvents();
+    script.onload = () => {
+        if ($(".product-detail").length) {
+          buildHTML();
+          buildCSS();
+          setEvents();
+          
+        } else {
+          console.log(
+            "The script designed for www.lcw.com product detail(single product) page only"
+          );
+        }
+      };
   };
 
   const buildHTML = () => {
@@ -254,6 +263,52 @@
 
     $("<style>").addClass("carousel-style").html(css).appendTo("head");
   };
+
+  const setScripts= ()=>{
+    class LocalStorageManager {
+        constructor() {
+          this.storageKey = "cards";
+        }
+    
+        save(data) {
+          try {
+            localStorage.setItem(this.storageKey, JSON.stringify(data));
+            return true;
+          } catch (error) {
+            console.error("Error saving to localStorage:", error);
+            return false;
+          }
+        }
+    
+        get() {
+          try {
+            const data = localStorage.getItem(this.storageKey);
+            return data ? JSON.parse(data) : [];
+          } catch (error) {
+            console.error("Error reading from localStorage:", error);
+            return [];
+          }
+        }
+    
+        toggleHeart(cardId) {
+          try {
+            const cards = this.get();
+            const cardIndex = cards.findIndex((card) => card.id === Number(cardId));
+    
+            if (cardIndex !== -1) {
+              cards[cardIndex].isHeartFilled = !cards[cardIndex].isHeartFilled;
+              this.save(cards);
+              return cards[cardIndex].isHeartFilled;
+            }
+            return null;
+          } catch (error) {
+            console.error("Error toggling heart:", error);
+            return null;
+          }
+        }
+    }
+    const ls = new LocalStorageManager();
+  }
 
   const setEvents = () => {
     let isDragStart = false;
