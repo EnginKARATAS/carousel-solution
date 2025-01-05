@@ -5,9 +5,17 @@
     script.type = "text/javascript";
     document.head.appendChild(script);
 
-    buildHTML();
-    buildCSS();
-    setEvents();
+    script.onload = () => {
+        if ($(".product-detail").length) {
+          buildHTML();
+          buildCSS();
+          setEvents();
+        } else {
+          console.log(
+            "The script designed for www.lcw.com product detail(single product) page only"
+          );
+        }
+      };
   };
 
   const buildHTML = () => {
