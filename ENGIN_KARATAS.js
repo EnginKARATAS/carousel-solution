@@ -6,20 +6,19 @@
     document.head.appendChild(script);
 
     script.onload = () => {
-        if ($(".product-detail").length) {
-          buildHTML();
-          buildCSS();
-          setEvents();
-          obtainData().then((data) => {
-            appendCarousel(data);
-          });
- 
-        } else {
-          console.log(
-            "The script designed for www.lcw.com product detail(single product) page only"
-          );
-        }
-      };
+      if ($(".product-detail").length) {
+        buildHTML();
+        buildCSS();
+        setEvents();
+        obtainData().then((data) => {
+          appendCarousel(data);
+        });
+      } else {
+        console.log(
+          "The script designed for www.lcw.com product detail(single product) page only"
+        );
+      }
+    };
   };
 
   const buildHTML = () => {
@@ -245,7 +244,6 @@
     $("<style>").addClass("carousel-style").html(css).appendTo("head");
   };
 
-  
   class LocalStorageManager {
     constructor() {
       this.storageKey = "cards";
@@ -287,25 +285,25 @@
         return null;
       }
     }
-}
-const ls = new LocalStorageManager();
+  }
+  const ls = new LocalStorageManager();
 
-    function appendCarousel(fetchResult) {
-        let appendSource;
-        if (fetchResult.source === "local") {
-          appendSource = fetchResult.localStorageCards;
-        } else if (fetchResult.source === "fetchapi") {
-          appendSource = fetchResult.localStorageCards;
-          ls.save(
-            appendSource.map((item) => {
-              return { ...item, isHeartFilled: false };
-            })
-          );
-        }
-        //append cards
-        let cards = "";
-        appendSource.forEach((element) => {
-          let card = `       
+  function appendCarousel(fetchResult) {
+    let appendSource;
+    if (fetchResult.source === "local") {
+      appendSource = fetchResult.localStorageCards;
+    } else if (fetchResult.source === "fetchapi") {
+      appendSource = fetchResult.localStorageCards;
+      ls.save(
+        appendSource.map((item) => {
+          return { ...item, isHeartFilled: false };
+        })
+      );
+    }
+    //append cards
+    let cards = "";
+    appendSource.forEach((element) => {
+      let card = `       
     <div class="product-card">
         <div class="product-card__heart" data-id="${element.id}">
             <svg xmlns="http://www.w3.org/2000/svg" width="20.576" height="15" viewBox="0 0 20.576 19.483">
@@ -330,39 +328,40 @@ const ls = new LocalStorageManager();
         </a>
     </div>
                 `;
-          cards += card;
-        });
-    
-        //prevent multi execute script carousel length > 10
-        const $carousel = $(".product-carousel__items").last();
-        if (!$carousel.children().length) $carousel.append(cards);
-      }
+      cards += card;
+    });
 
-    async function obtainData() {
-        return new Promise((resolve, reject) => {
-          //obtain source: local
-          const localStorageCards = ls.get();
-          if (localStorageCards.length > 0) {
-            appendCarousel({ localStorageCards, source: "local" });
-            //resolve for service needs
-          }
-          //obtain source: fetch API
-          else {
-            try {
-              fetch(
-                "https://gist.githubusercontent.com/sevindi/5765c5812bbc8238a38b3cf52f233651/raw/56261d81af8561bf0a7cf692fe572f9e1e91f372/products.json"
-              )
-                .then((response) => response.json())
-                .then((fetchedCards) =>
-                  appendCarousel({ localStorageCards, source: "fetchapi" })
-                  //resolve for service needs
-                );
-            } catch (error) {
-              console.log(error);
-              reject(error);
-            }
-          }
-        });
+    //prevent multi execute script carousel length > 10
+    const $carousel = $(".product-carousel__items").last();
+    if (!$carousel.children().length) $carousel.append(cards);
+  }
+
+  async function obtainData() {
+    return new Promise((resolve, reject) => {
+      //obtain source: local
+      const localStorageCards = ls.get();
+      if (localStorageCards.length > 0) {
+        appendCarousel({ localStorageCards, source: "local" });
+        //resolve for service needs
+      }
+      //obtain source: fetch API
+      else {
+        try {
+          fetch(
+            "https://gist.githubusercontent.com/sevindi/5765c5812bbc8238a38b3cf52f233651/raw/56261d81af8561bf0a7cf692fe572f9e1e91f372/products.json"
+          )
+            .then((response) => response.json())
+            .then(
+              (fetchedCards) =>
+                appendCarousel({ localStorageCards, source: "fetchapi" })
+              //resolve for service needs
+            );
+        } catch (error) {
+          console.log(error);
+          reject(error);
+        }
+      }
+    });
   }
 
   const setEvents = () => {
@@ -376,11 +375,11 @@ const ls = new LocalStorageManager();
     const $arrowRight = $(".product-carousel__arrow--right");
 
     function handleClick(e) {
-        if (isDragging) {
-          e.preventDefault();
-          e.stopPropagation();
-        }
+      if (isDragging) {
+        e.preventDefault();
+        e.stopPropagation();
       }
+    }
 
     function handleMouseDown(e) {
       e.preventDefault();
@@ -391,12 +390,12 @@ const ls = new LocalStorageManager();
     }
 
     function handleMouseMove(e) {
-        if (!isDragStart) return;
-  
-        isDragging = true;
-        let positionDiff = e.pageX - prevPageX;
-        $carousel.scrollLeft(prevScrollLeft - positionDiff);
-      }
+      if (!isDragStart) return;
+
+      isDragging = true;
+      let positionDiff = e.pageX - prevPageX;
+      $carousel.scrollLeft(prevScrollLeft - positionDiff);
+    }
 
     function handleMouseUp(e) {
       isDragStart = false;
@@ -415,7 +414,7 @@ const ls = new LocalStorageManager();
       });
     }
 
-     function handleHeartClick(e) {
+    function handleHeartClick(e) {
       const $path = $(this).find("path");
       const currCardId = e.currentTarget.getAttribute("data-id");
       if ($path.attr("fill") === "none") {
@@ -428,28 +427,28 @@ const ls = new LocalStorageManager();
     }
 
     function handleTouchStart(e) {
-        isDragStart = true;
+      isDragStart = true;
+      isDragging = false;
+      prevTouchX = e.originalEvent.touches[0].pageX;
+      prevScrollLeft = $carousel.scrollLeft();
+    }
+
+    function handleTouchMove(e) {
+      if (!isDragStart) return;
+
+      e.preventDefault();
+
+      isDragging = true;
+      let positionDiff = e.originalEvent.touches[0].pageX - prevTouchX;
+      $carousel.scrollLeft(prevScrollLeft - positionDiff);
+    }
+
+    function handleTouchEnd() {
+      isDragStart = false;
+      setTimeout(() => {
         isDragging = false;
-        prevTouchX = e.originalEvent.touches[0].pageX;
-        prevScrollLeft = $carousel.scrollLeft();
-      }
-  
-      function handleTouchMove(e) {
-        if (!isDragStart) return;
-  
-        e.preventDefault();
-  
-        isDragging = true;
-        let positionDiff = e.originalEvent.touches[0].pageX - prevTouchX;
-        $carousel.scrollLeft(prevScrollLeft - positionDiff);
-      }
-  
-      function handleTouchEnd() {
-        isDragStart = false;
-        setTimeout(() => {
-          isDragging = false;
-        }, 50);
-      }  
+      }, 50);
+    }
 
     $arrowLeft.on("click", handleArrowClick);
     $arrowRight.on("click", handleArrowClick);
@@ -458,7 +457,7 @@ const ls = new LocalStorageManager();
       .on("mousedown", handleMouseDown)
       .on("mousemove", handleMouseMove)
       .on("mouseup", handleMouseUp)
-      .on("mouseleave", "handleMouseUp")
+      .on("mouseleave", handleMouseUp)
       .on("click", handleClick)
       .on("click", ".product-card__heart", handleHeartClick)
       .on("touchstart", handleTouchStart)
