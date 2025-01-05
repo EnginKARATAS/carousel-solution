@@ -15,9 +15,10 @@
 
 ## Development Higlights
 
-*  Added necessary conditions in case of adding additional carousels. For example the card size does not change when multiple carousels are added. Or New carousel does not triggering local storage hearts to unfilled.
-*  The carousel design was created from scratch.
 *  All items in the case have been resolved.
+*  Added necessary conditions in case of adding additional carousels. For example the card size does not change when multiple carousels are added. Or New carousel does not triggering local storage hearts to unfilled.
+*  The carousel only accessible on product detail page, else the program throwing a warning.
+*  The carousel design was created from scratch.
 *  The carousel design was aimed to be pixel-perfect with minimal error margin, similar to other areas on the LCW site.
 *  Since pixel-perfect was not the primary request and the story did not include additional information about similarity to other blocks, the best possible design was targeted.
 *  As an improvement, the left and right arrow buttons disappearing in mobile view, and text overflow and line break properties are protected.
