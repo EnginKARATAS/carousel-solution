@@ -14,7 +14,7 @@
           appendCarousel(data);
         });
       } else {
-        console.log(
+        console.warn(
           "The script designed for www.lcw.com product detail(single product) page only"
         );
       }
@@ -351,13 +351,11 @@
 
   async function obtainData() {
     return new Promise((resolve, reject) => {
-      //obtain source: local
       const localStorageCards = ls.get();
       if (localStorageCards.length > 0) {
-        appendCarousel({ data: localStorageCards });
+        appendCarousel({ data: localStorageCards });//obtain source: local
         //resolve({ data: localStorageCards });//resolve for service needs
       }
-      //obtain source: fetch API
       else {
         try {
           fetch(
@@ -370,7 +368,7 @@
               return response.json();
             })
             .then((fetchedCards) => {
-              appendCarousel({ data: fetchedCards });
+              appendCarousel({ data: fetchedCards });//obtain source: fetch API
               //resolve({ data: fetchedCards }); //for service needs
             })
             .catch((error) => {
@@ -412,7 +410,6 @@
 
     function handleMouseMove(e) {
       if (!isDragStart) return;
-
       isDragging = true;
       let positionDiff = e.pageX - prevPageX;
       $carousel.scrollLeft(prevScrollLeft - positionDiff);
@@ -456,9 +453,7 @@
 
     function handleTouchMove(e) {
       if (!isDragStart) return;
-
       e.preventDefault();
-
       isDragging = true;
       let positionDiff = e.originalEvent.touches[0].pageX - prevTouchX;
       $carousel.scrollLeft(prevScrollLeft - positionDiff);
