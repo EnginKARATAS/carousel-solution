@@ -257,9 +257,11 @@
   };
 
   const setEvents = () => {
-    $("").on("click", () => {
-      console.log("clicked");
-    });
+    let isDragStart = false;
+    let isDragging = false;
+    let prevPageX,
+      prevScrollLeft = 0;
+
   };
 
   init();
