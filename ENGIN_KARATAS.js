@@ -264,6 +264,13 @@
     const $carousel = $(".product-carousel__items");
     const $arrowLeft = $(".product-carousel__arrow--left");
     const $arrowRight = $(".product-carousel__arrow--right");
+    
+    function handleClick(e) {
+        if (isDragging) {
+          e.preventDefault();
+          e.stopPropagation();
+        }
+      }
 
     function handleMouseDown(e) {
       e.preventDefault();
@@ -280,13 +287,6 @@
         let positionDiff = e.pageX - prevPageX;
         $carousel.scrollLeft(prevScrollLeft - positionDiff);
       }
-  
-    function handleClick(e) {
-      if (isDragging) {
-        e.preventDefault();
-        e.stopPropagation();
-      }
-    }
 
     function handleMouseUp(e) {
       isDragStart = false;
