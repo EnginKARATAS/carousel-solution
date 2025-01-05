@@ -264,7 +264,7 @@
     const $carousel = $(".product-carousel__items");
     const $arrowLeft = $(".product-carousel__arrow--left");
     const $arrowRight = $(".product-carousel__arrow--right");
-    
+
     function handleClick(e) {
         if (isDragging) {
           e.preventDefault();
@@ -296,8 +296,17 @@
       }, 50);
     }
 
-    $arrowLeft.on("click", "handleArrow1Click");
-    $arrowRight.on("click", "handleArrow1Click");
+    function handleArrowClick(e) {
+      const arrow1 = e.currentTarget.getAttribute("data");
+      const cardWidth = $carousel.find(".product-card").outerWidth(true) + 14;
+      const scrollAmount = arrow1 && arrow1 === "left" ? -cardWidth : cardWidth;
+      $carousel.animate({
+        scrollLeft: $carousel.scrollLeft() + scrollAmount,
+      });
+    }
+
+    $arrowLeft.on("click", "handleArrowClick");
+    $arrowRight.on("click", "handleArrowClick");
 
     $carousel
       .on("mousedown", handleMouseDown)
