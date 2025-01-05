@@ -316,7 +316,7 @@
         <div class="product-card__heart" data-id="${element.id}">
             <svg xmlns="http://www.w3.org/2000/svg" width="20.576" height="15" viewBox="0 0 20.576 19.483">
                 <path fill="${
-                  element.isHeartFilled === true ? " #193db0" : "none"
+                  element.isHeartFilled === true ? "#193db0" : "none"
                 }" stroke="#000" stroke-width="1.5px"
                     d="M19.032 7.111c-.278-3.063-2.446-5.285-5.159-5.285a5.128 5.128 0 0 0-4.394 2.532 4.942 4.942 0 0 0-4.288-2.532C2.478 1.826.31 4.048.032 7.111a5.449 5.449 0 0 0 .162 2.008 8.614 8.614 0 0 0 2.639 4.4l6.642 6.031 6.755-6.027a8.615 8.615 0 0 0 2.639-4.4 5.461 5.461 0 0 0 .163-2.012z"
                     transform="translate(.756 -1.076)"></path>
@@ -329,7 +329,7 @@
         </a>
         <a href="${element.url}" target="_blank">
             <div class="product-card__content">
-                <div class="product-card__title">${element.name.substr(
+                <div class="product-card__title">${element.name.substring(
                   0,
                   50
                 )}...</div>
@@ -352,12 +352,13 @@
       const localStorageCards = ls.get();
       if (localStorageCards.length > 0) {
         appendCarousel({ data: localStorageCards });
-        //resolve for service needs
+        //resolve({ data: localStorageCards });//resolve for service needs
       }
       //obtain source: fetch API
       else {
         try {
           fetch(
+            "https://gist.githubusercontent.com/sevindi/5765c5812bbc8238a38b3cf52f233651/raw/56261d81af8561bf0a7cf692fe572f9e1e91f372/products.json"
           )
             .then((response) => {
               if (!response.ok) {
@@ -365,7 +366,10 @@
               }
               return response.json();
             })
-            .then((fetchedCards) => appendCarousel({ data: fetchedCards }))
+            .then((fetchedCards) => {
+              appendCarousel({ data: fetchedCards });
+              //resolve({ data: fetchedCards }); //for service needs
+            })
             .catch((error) => {
               console.error("Error fetching data:", error);
               reject(error);
