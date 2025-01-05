@@ -356,13 +356,18 @@
       else {
         try {
           fetch(
-            "https://gist.githubusercontent.com/sevindi/5765c5812bbc8238a38b3cf52f233651/raw/56261d81af8561bf0a7cf692fe572f9e1e91f372/products.json"
           )
-            .then((response) => response.json())
-            .then(
-              (fetchedCards) => appendCarousel({ data: fetchedCards })
-              //resolve for service needs
-            );
+            .then((response) => {
+              if (!response.ok) {
+                throw new Error(`error status: ${response.status}`);
+              }
+              return response.json();
+            })
+            .then((fetchedCards) => appendCarousel({ data: fetchedCards }))
+            .catch((error) => {
+              console.error("Error fetching data:", error);
+              reject(error);
+            });
         } catch (error) {
           console.log(error);
           reject(error);
