@@ -23,232 +23,235 @@
 
   const buildHTML = () => {
     const html = `
- <div class="product-carousel">
-    <div class="product-carousel__wrapper">
-        <div class="product-carousel__container">
-            <p class="product-carousel__title">You Might Also Like</p>
-            <svg class="product-carousel__arrow product-carousel__arrow--left" data="left"
-                xmlns="http://www.w3.org/2000/svg" viewBox="0 0 14.242 24.242">
-                <path fill="none" stroke="#333" stroke-linecap="round" stroke-width="3px"
-                    d="M2106.842 2395.467l-10 10 10 10" transform="translate(-2094.721 -2393.346)"></path>
-            </svg>
-            <div class="product-carousel__items" />
-            <svg class="product-carousel__arrow product-carousel__arrow--right" data="right"
-                style="transform: rotate(180deg);" xmlns="http://www.w3.org/2000/svg" width="14.242" height="15"
-                viewBox="0 0 14.242 24.242">
-                <path fill="none" stroke="#333" stroke-linecap="round" stroke-width="3px"
-                    d="M2106.842 2395.467l-10 10 10 10" transform="translate(-2094.721 -2393.346)"></path>
-            </svg>
-        </div>
-    </div>
-</div>
+          <div class="product-carousel">
+              <div class="product-carousel__wrapper">
+                  <div class="product-carousel__container">
+                      <p class="product-carousel__title">You Might Also Like</p>
+                      <svg class="product-carousel__arrow product-carousel__arrow--left" data="left"
+                          xmlns="http://www.w3.org/2000/svg" viewBox="0 0 14.242 24.242">
+                          <path fill="none" stroke="#333" stroke-linecap="round" stroke-width="3px"
+                              d="M2106.842 2395.467l-10 10 10 10" transform="translate(-2094.721 -2393.346)"></path>
+                      </svg>
+                      <div class="product-carousel__items" />
+                      <svg class="product-carousel__arrow product-carousel__arrow--right" data="right"
+                          style="transform: rotate(180deg);" xmlns="http://www.w3.org/2000/svg" width="14.242" height="15"
+                          viewBox="0 0 14.242 24.242">
+                          <path fill="none" stroke="#333" stroke-linecap="round" stroke-width="3px"
+                              d="M2106.842 2395.467l-10 10 10 10" transform="translate(-2094.721 -2393.346)"></path>
+                      </svg>
+                  </div>
+              </div>
+          </div>
         `;
 
     $(".product-detail").append(html);
   };
 
   const buildCSS = () => {
-    const css = `
-            :root {
-                --carousel-gap: 18px;
-                --carousel-container-bg: #faf9f7;
-                --carousel-title-size: 30px;
-                --card-title-size: 14px;
-                --card-price-size: 18px;
-                --card-heart-x: 11px;
-                --card-heart-y: 9px;
-            }
+    const css = 
+    `
+      :root {
+        --carousel-gap: 18px;
+        --carousel-container-bg: #faf9f7;
+        --carousel-title-size: 30px;
+        --card-title-size: 14px;
+        --card-price-size: 18px;
+        --card-heart-x: 11px;
+        --card-heart-y: 9px;
+      }
 
-            .product-carousel {
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-end;
-            align-items: center;
-            background-color: var(--carousel-bg);
-            margin-top: 15px;
-            font-family: "Open Sans", sans-serif;
-            }
+      .product-carousel {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        align-items: center;
+        background-color: var(--carousel-bg);
+        margin-top: 15px;
+        font-family: "Open Sans", sans-serif;
+      }
 
-            .product-carousel__wrapper {
-            display: flex;
-            justify-content: center;
-            }
+      .product-carousel__wrapper {
+        display: flex;
+        justify-content: center;
+      }
 
-            .product-carousel__container {
-            width: 80%;
-            display: flex;
-            position: relative;
-            flex-direction: column;
-            box-sizing: border-box;
-            justify-content: space-between;
-            align-items: baseline;
-            }
+      .product-carousel__container {
+        width: 80%;
+        display: flex;
+        position: relative;
+        flex-direction: column;
+        box-sizing: border-box;
+        justify-content: space-between;
+        align-items: baseline;
+      }
 
-            .product-carousel__items {
-            display: flex;
-            column-gap: 18px;
-            padding-bottom: 32px;
-            margin-left: 15px;
-            overflow-x: hidden;
-            -webkit-overflow-scrolling: touch;
-            scrollbar-width: none;
-            }
+      .product-carousel__items {
+        display: flex;
+        column-gap: 18px;
+        padding-bottom: 32px;
+        margin-left: 15px;
+        overflow-x: hidden;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+      }
 
-            .product-carousel__items * {
-            box-sizing: border-box;
-            text-decoration: none;
-            color: inherit;
-            font-family: "Open Sans", sans-serif !important;
-            padding: 0;
-            }
+      .product-carousel__items * {
+        box-sizing: border-box;
+        text-decoration: none;
+        color: inherit;
+        font-family: "Open Sans", sans-serif !important;
+        padding: 0;
+      }
 
-            .product-carousel__title {
-            font-size: var(--carousel-title-size);
-            color: #29323b;
-            line-height: 33px;
-            font-weight: lighter;
-            padding: 15px 0;
-            margin: 0;
-            }
+      .product-carousel__title {
+        font-size: var(--carousel-title-size);
+        color: #29323b;
+        line-height: 33px;
+        font-weight: lighter;
+        padding: 15px 0;
+        margin: 0;
+      }
 
-            .product-carousel__arrow {
-            position: absolute;
-            z-index: 5;
-            top: 50%;
-            margin: 0 15px;
-            width: 24px;
-            height: 24px;
-            cursor: pointer;
-            }
+      .product-carousel__arrow {
+        position: absolute;
+        z-index: 5;
+        top: 50%;
+        margin: 0 15px;
+        width: 24px;
+        height: 24px;
+        cursor: pointer;
+      }
 
-            .product-carousel__arrow--left {
-            left: -35px;
-            }
+      .product-carousel__arrow--left {
+        left: -35px;
+      }
 
-            .product-carousel__arrow--right {
-            right: -52px;
-            }
+      .product-carousel__arrow--right {
+        right: -52px;
+      }
 
-            .product-card {
-            position: relative;
-            min-width: calc(100% /6 - 33px);
-            display: flex;
-            flex-direction: column;
-            background-color: var(--carousel-white);
-            box-shadow: var(--card-shadow);
-            }
+      .product-card {
+        position: relative;
+        min-width: calc(100% / 6 - 33px);
+        display: flex;
+        flex-direction: column;
+        background-color: var(--carousel-white);
+        box-shadow: var(--card-shadow);
+      }
 
-            .product-card__heart {
-            right: var(--card-heart-x);
-            top: var(--card-heart-y);
-            border: 1px solid gray;
-            background: #ffffff;
-            border-radius: 5px;
-            width: 28px;
-            height: 28px;
-            position: absolute;
-            z-index: 6;
-            cursor: pointer;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            }
+      .product-card__heart {
+        right: var(--card-heart-x);
+        top: var(--card-heart-y);
+        border: 1px solid gray;
+        background: #ffffff;
+        border-radius: 5px;
+        width: 28px;
+        height: 28px;
+        position: absolute;
+        z-index: 6;
+        cursor: pointer;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
 
-            .product-card__image-wrapper {
-            z-index: 0;
-            }
+      .product-card__image-wrapper {
+        z-index: 0;
+      }
 
-            .product-card__image {
-            width: 100%;
-            overflow-clip-margin: content-box;
-            overflow: clip;
-            }
+      .product-card__image {
+        width: 100%;
+        overflow-clip-margin: content-box;
+        overflow: clip;
+      }
 
-            .product-card__content {
-            display: flex;
-            height: 118px;
-            padding: 10px;
-            flex-direction: column;
-            justify-content: space-between;
-            }
+      .product-card__content {
+        display: flex;
+        height: 118px;
+        padding: 10px;
+        flex-direction: column;
+        justify-content: space-between;
+      }
 
-            .product-card__title {
-            font-size: var(--card-title-size);
-            line-height: 1.2;
-            height: 2.4em;
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            max-width: 100%;
-            margin: 0;
-            }
+      .product-card__title {
+        font-size: var(--card-title-size);
+        line-height: 1.2;
+        height: 2.4em;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 100%;
+        margin: 0;
+      }
 
-            .product-card__price {
-            color: #193db0;
-            font-weight: bold;
-            font-size: var(--card-price-size);
-            padding-bottom: 34px;
-            margin-top: auto;
-            }
+      .product-card__price {
+        color: #193db0;
+        font-weight: bold;
+        font-size: var(--card-price-size);
+        padding-bottom: 34px;
+        margin-top: auto;
+      }
 
-            a,
-            a:link,
-            a:visited,
-            a:hover,
-            a:active{
-            text-decoration: none;
-            }
+      a,
+      a:link,
+      a:visited,
+      a:hover,
+      a:active {
+        text-decoration: none;
+      }
 
-            /* media */
-            @media (max-width: 992px) {
-            .product-carousel__title {
-            color: #29323b;
-            font-size: 24px;
-            line-height: 33px;
-            }
+      /* media */
+      @media (max-width: 992px) {
+        .product-carousel__title {
+          color: #29323b;
+          font-size: 24px;
+          line-height: 33px;
+        }
 
-            .product-carousel {
-            margin: 0;
-            padding: 0;
-            }
+        .product-carousel {
+          margin: 0;
+          padding: 0;
+        }
 
-            .product-carousel__wrapper {
-            margin-left: 30px;
-            width: 100%;
-            padding: 0;
-            }
+        .product-carousel__wrapper {
+          margin-left: 30px;
+          width: 100%;
+          padding: 0;
+        }
 
-            .product-carousel__container {
-            width: 100%;
-            padding: 0;
-            margin: 0;
-            }
+        .product-carousel__container {
+          width: 100%;
+          padding: 0;
+          margin: 0;
+        }
 
-            .product-carousel__items {
-            width: 95vw;
-            margin: 0;
-            padding: 0;
-            }
+        .product-carousel__items {
+          width: 95vw;
+          margin: 0;
+          padding: 0;
+        }
 
-            .product-carousel__arrow {
-            display: none;
-            }
+        .product-carousel__arrow {
+          display: none;
+        }
 
-            .product-card {
-            min-width: calc(100% /3 + 33px);
-            }
-            }
+        .product-card {
+          min-width: calc(100% / 3 + 33px);
+        }
+      }
 
-            @media (max-width: 550px) {
-            .product-carousel__items {
-            width: 94vw;
-            }
-            .product-card {
-            min-width: calc(100% / 2);
-            }
-        `;
+      @media (max-width: 550px) {
+        .product-carousel__items {
+          width: 94vw;
+        }
+        .product-card {
+          min-width: calc(100% / 2);
+        }
+      }
+
+    `;
 
     $("<style>").addClass("carousel-style").html(css).appendTo("head");
   };
@@ -307,7 +310,7 @@
     );
     //prevent multi execute script carousel length > 10
     const $carousel = $(".product-carousel__items").last();
-    if ($carousel.find('.product-card').length) return;
+    if ($carousel.find(".product-card").length) return;
 
     let cards = "";
     appendSource.forEach((element) => {
