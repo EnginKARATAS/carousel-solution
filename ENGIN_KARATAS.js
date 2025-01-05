@@ -36,8 +36,8 @@
                                 </div>
                                 <div class="product-card__content">
                                     <div class="product-card__title">${"test".substr(
-                                    0,
-                                    45
+                                      0,
+                                      45
                                     )}...</div>
                                     <div class="product-card__price">${"test"} TL</div>
                                 </div>
@@ -59,8 +59,7 @@
   };
 
   const buildCSS = () => {
-    const css = 
-    `
+    const css = `
             :root {
                 --carousel-gap: 18px;
                 --carousel-container-bg: #faf9f7;
@@ -266,20 +265,36 @@
     const $arrowLeft = $(".product-carousel__arrow--left");
     const $arrowRight = $(".product-carousel__arrow--right");
 
+    function handleMouseDown(e) {
+      e.preventDefault();
+      isDragStart = true;
+      isDragging = false;
+      prevPageX = e.pageX;
+      prevScrollLeft = $carousel.scrollLeft();
+    }
+
     function handleClick(e) {
-        if (isDragging) {
-          e.preventDefault();
-          e.stopPropagation();
-        }
+      if (isDragging) {
+        e.preventDefault();
+        e.stopPropagation();
       }
+    }
+
+    function handleMouseUp(e) {
+      isDragStart = false;
+
+      setTimeout(() => {
+        isDragging = false;
+      }, 50);
+    }
 
     $arrowLeft.on("click", "handleArrow1Click");
     $arrowRight.on("click", "handleArrow1Click");
 
     $carousel
-      .on("mousedown", "handleMouseDown")
+      .on("mousedown", handleMouseDown)
       .on("mousemove", "handleMouseMove")
-      .on("mouseup", "handleMouseUp")
+      .on("mouseup", handleMouseUp)
       .on("mouseleave", "handleMouseUp")
       .on("click", handleClick)
       .on("click", ".product-card__heart", "handleHeartClick")
