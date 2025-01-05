@@ -261,7 +261,24 @@
     let isDragging = false;
     let prevPageX,
       prevScrollLeft = 0;
+    let prevTouchX;
+    const $carousel = $(".product-carousel__items");
+    const $arrowLeft = $(".product-carousel__arrow--left");
+    const $arrowRight = $(".product-carousel__arrow--right");
 
+    $arrowLeft.on("click", "handleArrow1Click");
+    $arrowRight.on("click", "handleArrow1Click");
+
+    $carousel
+      .on("mousedown", "handleMouseDown")
+      .on("mousemove", "handleMouseMove")
+      .on("mouseup", "handleMouseUp")
+      .on("mouseleave", "handleMouseUp")
+      .on("click", "handleClick")
+      .on("click", ".product-card__heart", "handleHeartClick")
+      .on("touchstart", "handleTouchStart")
+      .on("touchmove", "handleTouchMove")
+      .on("touchend", "handleTouchEnd");
   };
 
   init();
