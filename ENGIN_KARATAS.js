@@ -266,6 +266,13 @@
     const $arrowLeft = $(".product-carousel__arrow--left");
     const $arrowRight = $(".product-carousel__arrow--right");
 
+    function handleClick(e) {
+        if (isDragging) {
+          e.preventDefault();
+          e.stopPropagation();
+        }
+      }
+
     $arrowLeft.on("click", "handleArrow1Click");
     $arrowRight.on("click", "handleArrow1Click");
 
@@ -274,7 +281,7 @@
       .on("mousemove", "handleMouseMove")
       .on("mouseup", "handleMouseUp")
       .on("mouseleave", "handleMouseUp")
-      .on("click", "handleClick")
+      .on("click", handleClick)
       .on("click", ".product-card__heart", "handleHeartClick")
       .on("touchstart", "handleTouchStart")
       .on("touchmove", "handleTouchMove")
