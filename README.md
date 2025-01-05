@@ -9,14 +9,13 @@
 - [x]  Additionally, the code should ensure that the favorited products with filled hearts are displayed.
 - [x]  The design must be responsive and suitable for all platforms, including mobile, tablet, and desktop. Viewable product amount might vary according to the resolution.
 
-## Development Summary
+## Development Higlights
 
-*  The carousel design was created from scratch. No code was copied from the existing carousel.
+*  Added necessary conditions in case of adding additional carousels. For example the card size does not change when multiple carousels are added. Or New carousel does not triggering local storage hearts to unfilled.
+*  The carousel design was created from scratch.
 *  All items in the case have been resolved.
-*  Since it was requested to show "six and a half" cards, this view was statically achieved. This led to the images resizing responsively without breaking the design.
 *  The carousel design was aimed to be pixel-perfect with minimal error margin, similar to other areas on the LCW site.
 *  Since pixel-perfect was not the primary request and the story did not include additional information about similarity to other blocks, the best possible design was targeted.
-*  The left and right arrow buttons disappear in mobile view, and text overflow and line break properties are protected.
+*  As an improvement, the left and right arrow buttons disappearing in mobile view, and text overflow and line break properties are protected.
 *  The code was developed using functional and object-oriented programming principles to maintain clean code. However, abstractions and type definitions were kept to a minimum to avoid over-engineering.
 *  The arrow and heart features are fully functional.
-*  Controls were added to ensure that the card size does not change when multiple carousels are added.
