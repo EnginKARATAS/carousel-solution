@@ -10,7 +10,10 @@
           buildHTML();
           buildCSS();
           setEvents();
-          setScripts();
+          obtainData().then((data) => {
+            appendCarousel(data);
+          });
+ 
         } else {
           console.log(
             "The script designed for www.lcw.com product detail(single product) page only"
@@ -21,47 +24,25 @@
 
   const buildHTML = () => {
     const html = `
-        <div class="product-carousel">
-            <div class="product-carousel__wrapper">
-                <div class="product-carousel__container">
-                    <p class="product-carousel__title">You Might Also Like</p>
-                    <svg class="product-carousel__arrow product-carousel__arrow--left" data="left"
-                        xmlns="http://www.w3.org/2000/svg" viewBox="0 0 14.242 24.242">
-                        <path fill="none" stroke="#333" stroke-linecap="round" stroke-width="3px"
-                            d="M2106.842 2395.467l-10 10 10 10" transform="translate(-2094.721 -2393.346)"></path>
-                    </svg>
-                    <div class="product-carousel__items">
-                        <div class="product-card">
-                            <div class="product-card__heart" data-id="${"test"}">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="20.576" height="15" viewBox="0 0 20.576 19.483">
-                                    <path fill=" " stroke="#000" stroke-width="1.5px"
-                                        d="M19.032 7.111c-.278-3.063-2.446-5.285-5.159-5.285a5.128 5.128 0 0 0-4.394 2.532 4.942 4.942 0 0 0-4.288-2.532C2.478 1.826.31 4.048.032 7.111a5.449 5.449 0 0 0 .162 2.008 8.614 8.614 0 0 0 2.639 4.4l6.642 6.031 6.755-6.027a8.615 8.615 0 0 0 2.639-4.4 5.461 5.461 0 0 0 .163-2.012z"
-                                        transform="translate(.756 -1.076)"></path>
-                                </svg>
-                            </div>
-                            <a href="${"test"}" target="_blank">
-                                <div class="product-card__image-wrapper">
-                                    <img class="product-card__image" src="https://img-lcwaikiki.mncdn.com/mnresize/1024/-/pim/productimages/20221/5593210/v1/l_20221-s26331z8-cvl_a.jpg" alt="" />
-                                </div>
-                                <div class="product-card__content">
-                                    <div class="product-card__title">${"test".substr(
-                                      0,
-                                      45
-                                    )}...</div>
-                                    <div class="product-card__price">${"test"} TL</div>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                    <svg class="product-carousel__arrow product-carousel__arrow--right" data="right"
-                        style="transform: rotate(180deg);" xmlns="http://www.w3.org/2000/svg" width="14.242" height="15"
-                        viewBox="0 0 14.242 24.242">
-                        <path fill="none" stroke="#333" stroke-linecap="round" stroke-width="3px"
-                            d="M2106.842 2395.467l-10 10 10 10" transform="translate(-2094.721 -2393.346)"></path>
-                    </svg>
-                </div>
-            </div>
+ <div class="product-carousel">
+    <div class="product-carousel__wrapper">
+        <div class="product-carousel__container">
+            <p class="product-carousel__title">You Might Also Like</p>
+            <svg class="product-carousel__arrow product-carousel__arrow--left" data="left"
+                xmlns="http://www.w3.org/2000/svg" viewBox="0 0 14.242 24.242">
+                <path fill="none" stroke="#333" stroke-linecap="round" stroke-width="3px"
+                    d="M2106.842 2395.467l-10 10 10 10" transform="translate(-2094.721 -2393.346)"></path>
+            </svg>
+            <div class="product-carousel__items" />
+            <svg class="product-carousel__arrow product-carousel__arrow--right" data="right"
+                style="transform: rotate(180deg);" xmlns="http://www.w3.org/2000/svg" width="14.242" height="15"
+                viewBox="0 0 14.242 24.242">
+                <path fill="none" stroke="#333" stroke-linecap="round" stroke-width="3px"
+                    d="M2106.842 2395.467l-10 10 10 10" transform="translate(-2094.721 -2393.346)"></path>
+            </svg>
         </div>
+    </div>
+</div>
         `;
 
     $(".product-detail").append(html);
@@ -264,10 +245,50 @@
     $("<style>").addClass("carousel-style").html(css).appendTo("head");
   };
 
-  const setScripts= ()=>{
-    obtainData().then((data) => {
-        appendCarousel(data);
-      });
+  
+  class LocalStorageManager {
+    constructor() {
+      this.storageKey = "cards";
+    }
+
+    save(data) {
+      try {
+        localStorage.setItem(this.storageKey, JSON.stringify(data));
+        return true;
+      } catch (error) {
+        console.error("Error saving to localStorage:", error);
+        return false;
+      }
+    }
+
+    get() {
+      try {
+        const data = localStorage.getItem(this.storageKey);
+        return data ? JSON.parse(data) : [];
+      } catch (error) {
+        console.error("Error reading from localStorage:", error);
+        return [];
+      }
+    }
+
+    toggleHeart(cardId) {
+      try {
+        const cards = this.get();
+        const cardIndex = cards.findIndex((card) => card.id === Number(cardId));
+
+        if (cardIndex !== -1) {
+          cards[cardIndex].isHeartFilled = !cards[cardIndex].isHeartFilled;
+          this.save(cards);
+          return cards[cardIndex].isHeartFilled;
+        }
+        return null;
+      } catch (error) {
+        console.error("Error toggling heart:", error);
+        return null;
+      }
+    }
+}
+const ls = new LocalStorageManager();
 
     function appendCarousel(fetchResult) {
         let appendSource;
@@ -342,50 +363,6 @@
             }
           }
         });
-    }
-    class LocalStorageManager {
-        constructor() {
-          this.storageKey = "cards";
-        }
-    
-        save(data) {
-          try {
-            localStorage.setItem(this.storageKey, JSON.stringify(data));
-            return true;
-          } catch (error) {
-            console.error("Error saving to localStorage:", error);
-            return false;
-          }
-        }
-    
-        get() {
-          try {
-            const data = localStorage.getItem(this.storageKey);
-            return data ? JSON.parse(data) : [];
-          } catch (error) {
-            console.error("Error reading from localStorage:", error);
-            return [];
-          }
-        }
-    
-        toggleHeart(cardId) {
-          try {
-            const cards = this.get();
-            const cardIndex = cards.findIndex((card) => card.id === Number(cardId));
-    
-            if (cardIndex !== -1) {
-              cards[cardIndex].isHeartFilled = !cards[cardIndex].isHeartFilled;
-              this.save(cards);
-              return cards[cardIndex].isHeartFilled;
-            }
-            return null;
-          } catch (error) {
-            console.error("Error toggling heart:", error);
-            return null;
-          }
-        }
-    }
-    const ls = new LocalStorageManager();
   }
 
   const setEvents = () => {
