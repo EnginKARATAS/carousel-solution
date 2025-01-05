@@ -193,6 +193,15 @@
             margin-top: auto;
             }
 
+            a,
+            a:link,
+            a:visited,
+            a:hover,
+            a:active{
+            text-decoration: none;
+            }
+
+            /* media */
             @media (max-width: 992px) {
             .product-carousel__title {
             color: #29323b;
@@ -314,14 +323,17 @@
             <div class="product-card__image-wrapper">
                 <img class="product-card__image" src="${element.img}" alt="" />
             </div>
+        </a>
+        <a href="${element.url}" target="_blank">
             <div class="product-card__content">
                 <div class="product-card__title">${element.name.substr(
                   0,
                   45
                 )}...</div>
+        </a>
+
                 <div class="product-card__price">${element.price} TL</div>
             </div>
-        </a>
     </div>
                 `;
       cards += card;
